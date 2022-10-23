@@ -17,7 +17,7 @@ def apply_filter():
   filter_type = request.form.get('filter_type').lower()
   amount_str = request.form.get('amount')
   amount = int(amount_str) if amount_str != None else 1
-  print(f'{img.shape}')
+  print(img.shape)
 
   if filter_type == 'gaussian_blur':
     pass
