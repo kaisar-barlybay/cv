@@ -14,20 +14,17 @@ cors = CORS(app)
 def apply_filter():
   input_image = request.files['image']
   img = cv2.imdecode(np.asarray(bytearray(input_image.stream.read()), dtype=np.uint8), cv2.IMREAD_COLOR)
+  filter_type = request.form.get('filter_type').lower()
 
-  match request.form.get('filter_type').lower():
-    case 'gaussian_blur':
-      print(1)
-    case 'greyscale':
-      print(1)
-    case 'invert':
-      kernel = np.array([[-1, -1, -1], [-1, 9.5, -1], [-1, -1, -1]])
-      channel_ndarray: ndarray = cv2.filter2D(img, -1, kernel)
-    case 'bilateral':
-      print(1)
-    case _:
-      print('error')
-      return
+  if filter_type == 'gaussian_blur':
+    pass
+  elif filter_type == 'greyscale':
+    pass
+  elif filter_type == 'invert':
+    kernel = np.array([[-1, -1, -1], [-1, 9.5, -1], [-1, -1, -1]])
+    channel_ndarray: ndarray = cv2.filter2D(img, -1, kernel)
+  else:
+    return
 
   # channel_ndarray should be 3 channel
   encoded, plain_ndarray = cv2.imencode('.png', channel_ndarray)
